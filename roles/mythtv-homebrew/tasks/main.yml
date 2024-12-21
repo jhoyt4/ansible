@@ -2,11 +2,11 @@
 
 ---
 - name: Get homebrew install prefix
-  command:  brew --prefix
+  command: brew --prefix
   register: HB_OUT
 
 - name: set homebrew_prefix fact
-  set_fact:  homebrew_prefix={{ HB_OUT.stdout  }}
+  set_fact: homebrew_prefix={{ HB_OUT.stdout  }}
 
 - name: specify a mariadb/mysql version to install
   set_fact:
@@ -141,7 +141,7 @@
   register: LIBS_OUT
 
 - name: set MYSQLCLIENT_LDFLAGS fact
-  set_fact:  MYSQLCLIENT_LDFLAGS={{ LIBS_OUT.stdout }}
+  set_fact: MYSQLCLIENT_LDFLAGS={{ LIBS_OUT.stdout }}
 
 - name: Get mysqlclient cflags
   shell:
@@ -150,7 +150,7 @@
   register: CFLAG_OUT
 
 - name: set MYSQLCLIENT_CFLAGS fact
-  set_fact:  MYSQLCLIENT_CFLAGS={{ CFLAG_OUT.stdout }}
+  set_fact: MYSQLCLIENT_CFLAGS={{ CFLAG_OUT.stdout }}
 
 - name: create Python virtual environment folder for standard user
   become: false
