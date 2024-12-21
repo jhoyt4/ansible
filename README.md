@@ -35,7 +35,7 @@ Archlinux | pacman -S ansible
 Centos | yum install ansible (enable the [EPEL](https://fedoraproject.org/wiki/EPEL) repository first)
 Debian (and derivatives) | apt install ansible
 Fedora | dnf install ansible
-MacOSX (macports) | port install py311-ansible
+MacOSX (macports) | port install py313-ansible
 MacOSX (homebrew) | brew install ansible
 FreeBSD | pkg install py27-ansible
 OpenSuse | zypper install ansible
@@ -81,7 +81,7 @@ without escalating privileges in the homebrew playbook). E.g.
 
 
 #### MacOSX MacPorts Users
-``` sudo port install py311-ansible ```<br>
+``` sudo port install py313-ansible ```<br>
 ``` ./mythtv.yml --limit=localhost ```
 
 - Optionally specify a database version:
@@ -94,7 +94,7 @@ without escalating privileges in the homebrew playbook). E.g.
 
 - Optionally specify a different version of python3
 
-   ``` ./mythtv.yml --extra-vars="ansible_python_interpreter=/opt/local/bin/python3.11"  --limit=localhost ```
+   ``` ./mythtv.yml --extra-vars="ansible_python_interpreter=/opt/local/bin/python3.13"  --limit=localhost ```
 
 ## Other Platforms
 We welcome contributions to support additional platforms. Please contact the

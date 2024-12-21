@@ -76,6 +76,7 @@
       - ant
       - libhdhomerun
       - libX11
+      - php
       - sound-touch
       - libcec
       - zstd
@@ -119,6 +120,8 @@
       - curl
       - texinfo
       - texi2html
+      - font-dejavu
+      - font-liberation
 
 - name: print final list of packages
   debug:
@@ -130,18 +133,6 @@
   homebrew:
     name:
       '{{ lookup("flattened", homebrew_pkg_list) }}'
-
-- name: add fonts cask to homebrew
-  become: false
-  command: brew tap homebrew/cask-fonts
-
-- name: install dejavu fonts from brew cask
-  become: false
-  command: brew install --cask font-dejavu
-
-- name: install liberation fonts from brew cask
-  become: false
-  command: brew install --cask font-liberation
 
 - name: Get mysqlclient libs
   shell:
@@ -172,32 +163,16 @@
   pip:
     virtualenv: ~/.mythtv/python-virtualenv
     name:
-      - argparse
-      - audiofile
-      - bs4
-      - common
-      - configparser
-      - cryptography
-      - datetime
-      - discid
-      - et
-      - features
-      - future
-      - HTMLParser
-      - httplib2
-      - importlib_metadata
       - lxml
-      - musicbrainzngs
       - mysqlclient
-      - oauthlib
-      - py2app
+      - oauth
+      - pip>=23.0.1
       - pycurl
-      - python_dateutil
       - requests
-      - requests_cache==0.5.2
-      - simplejson
-      - traceback2
       - urllib3
+      - wheel
+      - py2app
+      - setuptools
       - wheel
   environment:
     MYSQLCLIENT_LDFLAGS: "{{ MYSQLCLIENT_LDFLAGS }}"
