@@ -192,9 +192,8 @@
       - pip>=23.0.1
       - pycurl
       - requests
+      - requests-cache
       - urllib3
-      - wheel
-      - py2app
       - setuptools
       - wheel
   environment:
