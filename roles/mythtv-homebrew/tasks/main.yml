@@ -92,6 +92,7 @@
     homebrew_pkg_list:
       - '{{ homebrew_pkg_list }}'
       - 'python@{{ python_exe_suffix }}'
+      - python-setuptools
       - virtualenv
       - pyenv-virtualenv
 
