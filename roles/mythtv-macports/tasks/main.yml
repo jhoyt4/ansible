@@ -177,13 +177,13 @@
 - name: create Python virtual environment folder for standard user
   become: false
   file:
-    name: ~/.mythtv/python-venv
+    name: ~/.mythtv/python-venv{{ python_package_suffix }}
     state: directory
 
 - name: initiate virtualenv for standard user
   become: false
   pip:
-    virtualenv: ~/.mythtv/python-venv
+    virtualenv: ~/.mythtv/python-venv{{ python_package_suffix }}
     virtualenv_python: python{{ python_exe_suffix }}
     name:
       - lxml
@@ -192,10 +192,31 @@
       - pip>=23.0.1
       - pycurl
       - requests
-      - requests-cache
+      - requests-cache==0.5.2
       - urllib3
       - setuptools
       - wheel
+      - musicbrainzngs
+      - argparse
+      - audiofile
+      - bs4
+      - common
+      - configparser
+      - cryptography
+      - datetime
+      - discid
+      - et
+      - features
+      - future
+      - HTMLParser
+      - httplib2
+      - importlib_metadata
+      - oauthlib
+      - python_dateutil
+      - simplejson
+      - traceback2
+      - markupsafe
+
   environment:
     MYSQLCLIENT_LDFLAGS: "{{ MYSQLCLIENT_LDFLAGS }}"
     MYSQLCLIENT_CFLAGS: "{{ MYSQLCLIENT_CFLAGS }}"

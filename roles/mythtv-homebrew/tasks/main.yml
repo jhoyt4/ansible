@@ -169,13 +169,13 @@
 - name: create Python virtual environment folder for standard user
   become: false
   file:
-    name: ~/.mythtv/python-venv
+    name: ~/.mythtv/python-venv{{ python_package_suffix }}
     state: directory
 
 - name: initiate virtualenv for standard user
   become: false
   pip:
-    virtualenv: ~/.mythtv/python-venv
+    virtualenv: ~/.mythtv/python-venv{{ python_package_suffix }}
     name:
       - lxml
       - mysqlclient
