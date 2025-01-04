@@ -97,8 +97,6 @@
       - python{{ python_package_suffix }}
       - py{{ python_package_suffix }}-pip
       - py{{ python_package_suffix }}-virtualenv
-      - py{{ python_package_suffix }}-lxml
-      - py{{ python_package_suffix }}-requests
 
 - name: add perl essentials
   set_fact:
@@ -180,23 +178,24 @@
     name: ~/.mythtv/python-venv{{ python_package_suffix }}
     state: directory
 
-- name: initiate virtualenv for standard user
-  become: false
-  pip:
-    virtualenv: ~/.mythtv/python-venv{{ python_package_suffix }}
-    virtualenv_python: python{{ python_exe_suffix }}
-    name:
+- name: create a list of required python packages
+  set_fact:
+    python_pkg_list:
       - lxml
       - mysqlclient
       - oauth
       - pip>=23.0.1
       - pycurl
       - requests
-      - requests-cache==0.5.2
-      - urllib3
+      - requests-cache
       - setuptools
+      - urllib3
       - wheel
-      - musicbrainzngs
+
+- name: add optional python packages
+  set_fact:
+    python_pkg_list:
+      - '{{ python_pkg_list }}'
       - argparse
       - audiofile
       - bs4
@@ -211,11 +210,22 @@
       - HTMLParser
       - httplib2
       - importlib_metadata
+      - markupsafe
+      - musicbrainzngs
       - oauthlib
       - python_dateutil
       - simplejson
       - traceback2
-      - markupsafe
+
+- name: initiate virtualenv for standard user
+  become: false
+  pip:
+    virtualenv: ~/.mythtv/python-venv{{ python_package_suffix }}
+    virtualenv_python: python{{ python_exe_suffix }}
+    virtualenv_command: virtualenv-{{ python_exe_suffix }}
+    virtualenv_site_packages: false
+    name:
+      '{{ lookup("flattened", python_pkg_list) }}'
 
   environment:
     MYSQLCLIENT_LDFLAGS: "{{ MYSQLCLIENT_LDFLAGS }}"

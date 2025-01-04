@@ -172,22 +172,54 @@
     name: ~/.mythtv/python-venv{{ python_package_suffix }}
     state: directory
 
-- name: initiate virtualenv for standard user
-  become: false
-  pip:
-    virtualenv: ~/.mythtv/python-venv{{ python_package_suffix }}
-    name:
+- name: create a list of required python packages
+  set_fact:
+    python_pkg_list:
       - lxml
       - mysqlclient
       - oauth
       - pip>=23.0.1
       - pycurl
       - requests
+      - requests-cache
+      - setuptools
       - urllib3
       - wheel
-      - py2app
-      - setuptools
-      - wheel
+
+- name: add optional python packages
+  set_fact:
+    python_pkg_list:
+      - '{{ python_pkg_list }}'
+      - argparse
+      - audiofile
+      - bs4
+      - common
+      - configparser
+      - cryptography
+      - datetime
+      - discid
+      - et
+      - features
+      - future
+      - HTMLParser
+      - httplib2
+      - importlib_metadata
+      - markupsafe
+      - musicbrainzngs
+      - oauthlib
+      - python_dateutil
+      - simplejson
+      - traceback2
+
+- name: initiate virtualenv for standard user
+  become: false
+  pip:
+    virtualenv: ~/.mythtv/python-venv{{ python_package_suffix }}
+    virtualenv_python: python{{ python_exe_suffix }}
+    virtualenv_command: virtualenv
+    virtualenv_site_packages: false
+    name:
+      '{{ lookup("flattened", python_pkg_list) }}'
   environment:
     MYSQLCLIENT_LDFLAGS: "{{ MYSQLCLIENT_LDFLAGS }}"
     MYSQLCLIENT_CFLAGS: "{{ MYSQLCLIENT_CFLAGS }}"
